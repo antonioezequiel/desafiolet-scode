@@ -25,7 +25,7 @@ public class LoginController {
 	AuthenticationManager authenticationManager;
 	@Autowired
 	TokenService tokenService;
-
+	//mudei o mediatype
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> logar(@RequestBody @Valid LoginForm form) {
 		UsernamePasswordAuthenticationToken loginDados = form.converterDados();
