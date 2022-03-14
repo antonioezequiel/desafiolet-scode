@@ -23,16 +23,19 @@ import com.letscode.moviebattle.moviebattle.repository.MovieRepository;
 
 @Service
 public class MovieService {
-//	@Autowired
+
 	MovieRepository movieRepository;
-//	@Autowired
-//	@Lazy
 	QuizService quizService;
+	final Document document = Jsoup
+			.connect("https://www.imdb.com/search/title/?groups=top_250&sort=user_rating,desc&view=advanced")
+			.timeout(6000).get();
+	final Document document2 = Jsoup
+			.connect("https://www.imdb.com/search/title/?groups=top_250&sort=user_rating,desc&start=51&ref_=adv_nxt")
+			.timeout(6000).get();
 
 	public MovieService() throws IOException {
 		super();
-	}
-	
+	}	
 	
 	@Autowired
 	public MovieService(MovieRepository movieRepository, @Lazy QuizService quizService) throws IOException {
@@ -41,15 +44,6 @@ public class MovieService {
 		this.quizService = quizService;
 	}
 
-
-
-	final Document document = Jsoup
-			.connect("https://www.imdb.com/search/title/?groups=top_250&sort=user_rating,desc&view=advanced")
-			.timeout(6000).get();
-	final Document document2 = Jsoup
-			.connect("https://www.imdb.com/search/title/?groups=top_250&sort=user_rating,desc&start=51&ref_=adv_nxt")
-			.timeout(6000).get();
-	
 	public void carregarFilmes() {
 		final String uri = ("http://omdbapi.com/?apikey=1c8b15a0&t=");
 		RestTemplate restTemplate = new RestTemplate();
@@ -63,8 +57,6 @@ public class MovieService {
 			movieRepository.save(movie);
 		}
 	}
-
-	// ---------------------------------------------------------------------------------------------
 	
 	public void carregarFilmesIMDB() {
 		carregaFilmes(document);
@@ -86,8 +78,6 @@ public class MovieService {
 			movieRepository.save(movie);
 		}
 	}
-
-	// ------------------------------------------------------------------------------------------------
 
 	public List<MovieSortearDTO> sortearDoisFilmes() {
 		List<Movie> moviies = movieRepository.findAll();
