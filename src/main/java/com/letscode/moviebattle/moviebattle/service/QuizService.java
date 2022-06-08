@@ -69,15 +69,22 @@ public class QuizService {
 	private void calculaAcerto() {
 		var partidas = this.userQuiz.getRound();
 		var acertos = this.userQuiz.getScore();
-		this.userQuiz.setScore((acertos / partidas) * partidas);
+		this.userQuiz.setFinalizado(true);
+		//this.userQuiz.setScore((acertos / partidas) * partidas);
 	}
 
-	public List<MovieRankingDTO> getRanking() {
-		List<UserQuiz> usersRanking = userQuizRepository.findAllByOrderByScoreDesc();
+	public List<MovieRankingDTO> getRanking(int pageInicio) {
+		//calculo de listagem 
+		int quantidade = 3;
+		int inicioListagem = (pageInicio-1)*quantidade;
+		//List<UserQuiz> usersRanking = userQuizRepository.findAllByOrderByScoreDesc();
+		List<UserQuiz> usersRanking = userQuizRepository
+				.findAllWithPagination(inicioListagem, quantidade);
 		List<MovieRankingDTO> usersRankingDTO = new ArrayList<MovieRankingDTO>();
 		for (UserQuiz user : usersRanking) {
 			usersRankingDTO.add(user.obterUsuarioDTO());
 		}
+		
 		return usersRankingDTO;
 	}
 

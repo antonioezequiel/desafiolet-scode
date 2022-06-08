@@ -32,6 +32,8 @@ public class AutenticationTokenFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String token = recuperarToken(request);
+		//if(token == null)
+		//	token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2dvIGRlIGZpbG1lcyIsInN1YiI6ImFudG9uaW8iLCJpYXQiOjE2NTI2MzU2MDMsImV4cCI6MTY4MjYzNTYwM30.qYH83CqM-zblMzUsDjqpkZb-MvvapCoM9irtVej5oLk";
 		boolean tokenvalido = tokenService.isValid(token);
 		if(tokenvalido) {
 			realizarAutenticacao(token);

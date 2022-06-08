@@ -9,23 +9,29 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import com.letscode.moviebattle.moviebattle.classes.Movie;
 import com.letscode.moviebattle.moviebattle.classes.DTO.MovieSortearDTO;
 import com.letscode.moviebattle.moviebattle.repository.MovieRepository;
-
+@SpringBootTest
 class MovieServiceTest {
 	
 	@Mock
+	@Autowired
 	MovieRepository movieRepository;
 	@Mock
+	@Autowired
 	QuizService quizService;
+	@Autowired
 	MovieService movieService;
 
 	@SuppressWarnings("deprecation")
 	@BeforeEach
 	public void beforeEach() throws IOException {
 		MockitoAnnotations.initMocks(this);		
-		this.movieService = new MovieService(movieRepository, quizService);
+		//this.movieService = new MovieService(movieRepository, quizService);
 	}
 	
 	@Test

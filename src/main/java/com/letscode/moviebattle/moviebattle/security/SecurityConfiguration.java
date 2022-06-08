@@ -29,7 +29,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	        "/swagger-resources/**",
 	        "/swagger-ui.html",
 	        "/v2/api-docs",
-	        "/webjars/**"
+	        "/webjars/**",
+	        "/create/new-user",
+	        "/auth",
+	        "/carregar"
 	};
 		
 	@Override
@@ -38,6 +41,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		return super.authenticationManager();
 	}
 	
+//	@Override
+//    protected void configure(HttpSecurity http) throws Exception{
+//		http.authorizeRequests()
+//		.antMatchers("/auth").permitAll()
+//		.antMatchers("/swagger-ui/*").permitAll()
+//		.antMatchers("/carregar").permitAll()
+//		.antMatchers("/api/movieshow/ranking").permitAll()
+//		.antMatchers("/api/movieshow/iniciar").permitAll()
+//		.antMatchers("/api/movieshow/sortear").permitAll()
+//		.antMatchers("/api/movieshow/jogar").permitAll()
+//		.antMatchers("/api/movieshow/finalizar").permitAll()
+//		.antMatchers("/new-user").permitAll()
+//	    .anyRequest().authenticated()
+//	    .and().csrf().disable()
+//	    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//	    .and().addFilterBefore(new AutenticationTokenFilter(tokenService, usuarioService), UsernamePasswordAuthenticationFilter.class);
+//    }
+	
 	//configuração de urls
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -45,6 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		.antMatchers("/auth").permitAll()
 		.antMatchers("/swagger-ui/*").permitAll()
 		.antMatchers("/carregar").permitAll()
+		.antMatchers("/new-user").permitAll()
 		.antMatchers("/api/movieshow/ranking").permitAll()
 	    .anyRequest().authenticated()
 	    .and().csrf().disable()

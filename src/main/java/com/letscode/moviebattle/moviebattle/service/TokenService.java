@@ -46,6 +46,8 @@ public class TokenService {
 	}
 
 	public String getNomeUsuario(String token) {
+		//if(token == null)
+		//	token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2dvIGRlIGZpbG1lcyIsInN1YiI6ImFudG9uaW8iLCJpYXQiOjE2NTI2MzU2MDMsImV4cCI6MTY4MjYzNTYwM30.qYH83CqM-zblMzUsDjqpkZb-MvvapCoM9irtVej5oLk";
 		Claims body = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();
 		return body.getSubject();
 	}

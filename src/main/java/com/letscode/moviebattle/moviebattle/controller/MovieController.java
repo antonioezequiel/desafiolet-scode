@@ -1,9 +1,12 @@
 package com.letscode.moviebattle.moviebattle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.letscode.moviebattle.moviebattle.classes.Usuario;
 import com.letscode.moviebattle.moviebattle.service.MovieService;
 import com.letscode.moviebattle.moviebattle.service.UsuarioService;
 
@@ -22,8 +25,19 @@ public class MovieController {
 	@GetMapping("/carregar")
 	public String carregarDados() {
 		movieService.carregarFilmesIMDB();
-		usuarioService.criarUsuariosPadrao();
+		//usuarioService.criarUsuariosPadrao();
 		return "dados carregados com sucesso";
+	}
+	
+	@PostMapping("/create/new-user")
+	public ResponseEntity<?> cadastrar(@RequestBody Usuario usuario){
+		try {
+			usuario = usuarioService.criarUsuariosPadrao(usuario);
+			return ResponseEntity.ok(usuario);
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			return ResponseEntity.noContent().build();
+		}
 	}
 	
 	

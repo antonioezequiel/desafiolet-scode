@@ -21,20 +21,22 @@ public class UserQuiz {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String userQuiz;
-    private double score;
+    private int score;
     @Transient
     private Integer life;
     @Transient
     private String message;
     @Transient
     private int round;
+    @Transient
+    private boolean finalizado;
     
     
     public MovieRankingDTO obterUsuarioDTO() {
         return new MovieRankingDTO(this.userQuiz, this.score, this.id);
     }
 
-	public UserQuiz(Integer id, String userQuiz, double score, Integer life, String message, int round) {
+	public UserQuiz(Integer id, String userQuiz, int score, Integer life, String message, int round) {
 		super();
 		this.id = id;
 		this.userQuiz = userQuiz;
@@ -42,5 +44,6 @@ public class UserQuiz {
 		this.life = life;
 		this.message = message;
 		this.round = round;
+		this.finalizado = false;
 	}    
  }

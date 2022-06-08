@@ -6,4 +6,6 @@ import com.letscode.moviebattle.moviebattle.classes.Role;
 
 public interface RoleRepository extends JpaRepository<Role, String>{
 
+	Role getByNome(String string);
+
 }

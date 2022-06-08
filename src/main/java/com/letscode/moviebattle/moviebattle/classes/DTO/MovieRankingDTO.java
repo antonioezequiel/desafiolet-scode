@@ -8,9 +8,9 @@ import lombok.Setter;
 public class MovieRankingDTO {
 	private int id;
 	private String userQuiz;
-	private Double score;
+	private int score;
 	
-	public MovieRankingDTO(String userQuiz, Double score, int id) {
+	public MovieRankingDTO(String userQuiz, int score, int id) {
 		super();
 		this.userQuiz = userQuiz;
 		this.score = score;

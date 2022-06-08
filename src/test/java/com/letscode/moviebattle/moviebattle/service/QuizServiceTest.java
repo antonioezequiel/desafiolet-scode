@@ -60,7 +60,7 @@ class QuizServiceTest {
 	void testGetRanking() {
 		List<UserQuiz> usersRanking = gerarListUserQuiz();
 		Mockito.when(userQuizRepositoryMock.findAllByOrderByScoreDesc()).thenReturn(usersRanking);
-		List<MovieRankingDTO> usersRankingDTO = quizService.getRanking();
+		List<MovieRankingDTO> usersRankingDTO = quizService.getRanking(1);
 		MovieRankingDTO movieranking = usersRankingDTO.get(0);
 		assertEquals("jose", movieranking.getUserQuiz());
 	}
@@ -100,7 +100,7 @@ class QuizServiceTest {
 	
 	private UserQuiz usuarioSave() {
 		UserQuiz userQuiz = new UserQuiz();
-		userQuiz.setScore(10.5);
+		userQuiz.setScore(10);
 		userQuiz.setId(10);
 		userQuiz.setUserQuiz("jose");
 		userQuiz.setLife(3);

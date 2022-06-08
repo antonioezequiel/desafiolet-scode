@@ -6,10 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.letscode.moviebattle.moviebattle.classes.UserQuiz;
@@ -72,17 +75,22 @@ public class PlayController {
 
 	@GetMapping("/finalizar")
 	public ResponseEntity<?> finalizar() {
+		
+		UserQuiz userQuiz = null;
 		if (quizService.usuarioLogado()) {
-			quizService.savePart();
-			return ResponseEntity.ok("O jogo acabou. Dados da partida salvos com sucesso");
+			userQuiz = quizService.getUserQuiz();
+			quizService.savePart();			
+			userQuiz.setMessage("O jogo acabou. Dados da partida salvos com sucesso");
+			return ResponseEntity.ok(userQuiz);
 		}
 		return ResponseEntity.noContent().build();
 	}
-
+	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping("/ranking")
-	public ResponseEntity<?> ranking() {
+	public ResponseEntity<?> ranking(@RequestParam String page) {
+		
 		try {
-			return ResponseEntity.ok(quizService.getRanking());
+			return ResponseEntity.ok(quizService.getRanking(Integer.parseInt(page)));
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().build();
 		}
